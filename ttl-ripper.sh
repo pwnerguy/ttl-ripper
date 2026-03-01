@@ -30,26 +30,21 @@ trap ctrl_c INT
 
 function help () {
 
-  echo -e "${greenColour} ______   ______   __            ______     __     ______   ______   ______     ______    ${endColour}"
-  echo -e "${greenColour}/\__  _\ /\__  _\ /\ \          /\  == \   /\ \   /\  == \ /\  == \ /\  ___\   /\  == \   ${endColour}"
-  echo -e "${greenColour}\/_/\ \/ \/_/\ \/ \ \ \____     \ \  __<   \ \ \  \ \  _-/ \ \  _-/ \ \  __\   \ \  __<   ${endColour}"
-  echo -e "${greenColour}   \ \_\    \ \_\  \ \_____\     \ \_\ \_\  \ \_\  \ \_\    \ \_\    \ \_____\  \ \_\ \_\ ${endColour}"
-  echo -e "${greenColour}    \/_/     \/_/   \/_____/      \/_/ /_/   \/_/   \/_/     \/_/     \/_____/   \/_/ /_/ ${endColour}v0.1"
+  echo -e "${greenColour} ______   ______   __            ______    __    ______   ______   ______    ______    ${endColour}"
+  echo -e "${greenColour}/\__  _\ /\__  _\ /\ \          /\  == \  /\ \  /\  == \ /\  == \ /\  ___\  /\  == \   ${endColour}"
+  echo -e "${greenColour}\/_/\ \/ \/_/\ \/ \ \ \____     \ \  __<  \ \ \ \ \  _-/ \ \  _-/ \ \  __\  \ \  __<   ${endColour}"
+  echo -e "${greenColour}   \ \_\    \ \_\  \ \_____\     \ \_\ \_\ \ \_\ \ \_\    \ \_\    \ \_____\ \ \_\ \_\ ${endColour}"
+  echo -e "${greenColour}    \/_/     \/_/   \/_____/      \/_/ /_/  \/_/  \/_/     \/_/     \/_____/  \/_/ /_/ ${endColour}v0.1"
 
   echo -e "\nby pwnerguy (https://github.com/pwnerguy/ttl-ripper)"
 
-  echo -e "\nTTL Ripper is a simple tool to scan TTL (Time to Live) values of ICMP packets to gather"
-  echo -e "information about one or more IP addresses. It includes fast mode, ultrafast mode y and an optional" 
-  echo -e "TCP fallback for hosts that don't respond to ICMP. Be aware that TTL values might be modified by"
-  echo -e "systems or admins, so results are not 100% reliable and may not accurately reflect the real OS."
-
-  echo -e "\n$ ./ttl-ripper.sh [options]\n"
-  echo -e "\t${greenColour}-i${endColour} <ip>\t\tTTL scan a single IP address."
-  echo -e "\t${greenColour}-l${endColour} <list>\tTTL scan a list of IP addresses."
-  echo -e "\t${greenColour}-e${endColour} <file>\tExport console output to a file."
-  echo -e "\t${greenColour}-f${endColour} \t\tFast mode. It sends only 1 ICMP packet instead of 2."
-  echo -e "\t${greenColour}-u${endColour} \t\tUltrafast mode. 1 ICMP packet and no TCP fallback in case of ICMP fail."
-  echo -e "\t${greenColour}-h${endColour} \t\tDisplay this help panel.\n"
+  echo -e "\nUsage: ./ttl-ripper.sh [options]\n"
+  echo -e "  ${greenColour}-i${endColour} <ip>    TTL scan a single IP address."
+  echo -e "  ${greenColour}-l${endColour} <list>  TTL scan a list of IP addresses."
+  echo -e "  ${greenColour}-e${endColour} <file>  Export terminal output to a file."
+  echo -e "  ${greenColour}-f${endColour}         Fast mode. 1 ICMP packet instead of 2."
+  echo -e "  ${greenColour}-u${endColour}         Ultrafast mode. 1 ICMP packet + no TCP fallback in case of ICMP fail."
+  echo -e "  ${greenColour}-h${endColour}         Display this help panel.\n"
 
 }
 
@@ -59,11 +54,11 @@ function scan_header () {
   fast_mode="$2"
   ultra_fast_mode="$3"
 
-  echo -e "${greenColour} ______   ______   __            ______     __     ______   ______   ______     ______    ${endColour}"
-  echo -e "${greenColour}/\__  _\ /\__  _\ /\ \          /\  == \   /\ \   /\  == \ /\  == \ /\  ___\   /\  == \   ${endColour}"
-  echo -e "${greenColour}\/_/\ \/ \/_/\ \/ \ \ \____     \ \  __<   \ \ \  \ \  _-/ \ \  _-/ \ \  __\   \ \  __<   ${endColour}"
-  echo -e "${greenColour}   \ \_\    \ \_\  \ \_____\     \ \_\ \_\  \ \_\  \ \_\    \ \_\    \ \_____\  \ \_\ \_\ ${endColour}"
-  echo -e "${greenColour}    \/_/     \/_/   \/_____/      \/_/ /_/   \/_/   \/_/     \/_/     \/_____/   \/_/ /_/ ${endColour}v0.1"
+  echo -e "${greenColour} ______   ______   __            ______    __    ______   ______   ______    ______    ${endColour}"
+  echo -e "${greenColour}/\__  _\ /\__  _\ /\ \          /\  == \  /\ \  /\  == \ /\  == \ /\  ___\  /\  == \   ${endColour}"
+  echo -e "${greenColour}\/_/\ \/ \/_/\ \/ \ \ \____     \ \  __<  \ \ \ \ \  _-/ \ \  _-/ \ \  __\  \ \  __<   ${endColour}"
+  echo -e "${greenColour}   \ \_\    \ \_\  \ \_____\     \ \_\ \_\ \ \_\ \ \_\    \ \_\    \ \_____\ \ \_\ \_\ ${endColour}"
+  echo -e "${greenColour}    \/_/     \/_/   \/_____/      \/_/ /_/  \/_/  \/_/     \/_/     \/_____/  \/_/ /_/ ${endColour}v0.1"
 
   echo -e "\nby pwnerguy (https://github.com/pwnerguy/ttl-ripper)"
 
@@ -152,10 +147,10 @@ function scan () {
 
   output=$(
   echo -e "${yellowColour}[+]${endColour} $ip" 
-  echo -e " ├─ TTL: $ttl"
-  echo -e " ├─ Response time: $rtime ms"
-  echo -e " ├─ Estimated hop count: $hop_count"
-  echo -e " └─ Likely OS: $os")
+  echo -e " |  TTL: $ttl"
+  echo -e " |  Response time: $rtime ms"
+  echo -e " |  Estimated hop count: $hop_count"
+  echo -e " |_ Likely OS: $os")
  
   echo "$output"
 
